@@ -6,10 +6,10 @@ export interface TextContextData {
   tasks: Task[];
   createTask: (attibutes: Omit<Task, "id">) => Promise<Task>;
   updateTask: (
-    id: number,
+    id: string,
     attibutes: Partial<Omit<Task, "id">>
   ) => Promise<void>;
-  deleteTask: (id: number) => Promise<void>;
+  deleteTask: (id: string) => Promise<void>;
 }
 
 export const TasksContext = createContext({} as TextContextData);
@@ -34,11 +34,24 @@ export const TasksContextProvider: React.FC<TasksContextProviderProps> = ({
   };
 
   const updateTask = async (
-    id: number,
+    id: string,
     attibutes: Partial<Omit<Task, "id">>
-  ) => {};
+  ) => {
+    await taskServices.updateTask(id, attibutes);
 
-  const deleteTask = async (id: number) => {};
+    setTasks((currentState) => {
+      const updatedTask = [...currentState];
+      const taskIndex = updatedTask.findIndex((task) => task.id === id);
+      Object.assign(updatedTask[taskIndex], attibutes);
+      return updatedTask;
+    });
+  };
+
+  const deleteTask = async (id: string) => {
+    await taskServices.deleteTask(id);
+
+    setTasks((current) => current.filter((task) => task.id !== id));
+  };
 
   return (
     <TasksContext.Provider
