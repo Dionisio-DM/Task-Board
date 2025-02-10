@@ -1,11 +1,22 @@
 import { Badge, Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { Task, TaskPriority, TaskStatus } from "../Entities/Task";
+import { useTasks } from "../hooks/useTasks";
 
 interface TaskCardProps {
   task: Task;
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+  const { deleteTask, updateTask } = useTasks();
+
+  const handleUpdate = () => {
+    if (task.status === "todo") {
+      updateTask(task.id, { status: "doing" });
+    } else if (task.status === "doing") {
+      updateTask(task.id, { status: "done" });
+    }
+  };
+
   const getActionText = (status: TaskStatus) => {
     const actionsText = {
       todo: "Iniciar",
@@ -44,10 +55,14 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         {task.description}
       </Text>
       <Flex gap={"2"}>
-        <Button color={getActionColor(task.status)}>
-          {getActionText(task.status)}
+        {task.status !== "done" && (
+          <Button color={getActionColor(task.status)} onClick={handleUpdate}>
+            {getActionText(task.status)}
+          </Button>
+        )}
+        <Button color="red" onClick={() => deleteTask(task.id)}>
+          Excluir
         </Button>
-        <Button color="red">Excluir</Button>
       </Flex>
     </Card>
   );
