@@ -1,43 +1,29 @@
 import { Badge, Flex, Grid, ScrollArea } from "@radix-ui/themes";
 import { Task } from "../Entities/Task";
 import { TaskCard } from "./TaskCard";
+import { useEffect, useState } from "react";
+import { taskServices } from "../Services/api";
 
 export const TaskBoard: React.FC = () => {
-  const tasksTodo: Task[] = [
-    {
-      id: 2,
-      title: "Reunião com a equipe",
-      description:
-        "Reunião para discutir o progresso do projeto e próximos passos.",
-      status: "todo",
-      priority: "high",
-    },
-  ];
-  const tasksInProress: Task[] = [
-    {
-      id: 1,
-      title: "Enviar relatório",
-      description: "Enviar o relatório mensal para o departamento financeiro.",
-      status: "doing",
-      priority: "high",
-    },
-  ];
-  const tasksDone: Task[] = [
-    {
-      id: 3,
-      title: "Atualizar o site",
-      description:
-        "Fazer atualizações no site da empresa com novas informações.",
-      status: "done",
-      priority: "medium",
-    },
-  ];
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    taskServices.fetchTasks().then((storedTasks) => setTasks(storedTasks));
+  });
+
+  const tasksTodo: Task[] =
+    tasks.filter((task) => task.status === "todo") ?? [];
+  const tasksInProress: Task[] =
+    tasks.filter((task) => task.status === "doing") ?? [];
+  const tasksDone: Task[] =
+    tasks.filter((task) => task.status === "done") ?? [];
+
   return (
     <ScrollArea scrollbars="horizontal">
       <Grid columns={"3"} gap={"4"} minWidth={"64rem"}>
         <Flex direction={"column"} gap={"4"}>
           <Badge size={"3"} color="gray">
-            Para Fazer (2)
+            Para Fazer ({tasksTodo.length})
           </Badge>
           {tasksTodo.map((task) => (
             <TaskCard key={task.id} task={task}></TaskCard>
@@ -45,7 +31,7 @@ export const TaskBoard: React.FC = () => {
         </Flex>
         <Flex direction={"column"} gap={"4"}>
           <Badge size={"3"} color="yellow">
-            Em Progresso (2)
+            Em Progresso ({tasksInProress.length})
           </Badge>
 
           {tasksInProress.map((task) => (
@@ -54,7 +40,7 @@ export const TaskBoard: React.FC = () => {
         </Flex>
         <Flex direction={"column"} gap={"4"}>
           <Badge size={"3"} color="grass">
-            Concluída (2)
+            Concluída ({tasksDone.length})
           </Badge>
 
           {tasksDone.map((task) => (
