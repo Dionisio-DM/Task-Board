@@ -1,5 +1,6 @@
 import { Badge, Flex, Grid } from "@radix-ui/themes";
 import { Task } from "../Entities/Task";
+import { TaskCard } from "./TaskCard";
 
 export const TaskBoard: React.FC = () => {
   const tasksTodo: Task[] = [
@@ -37,16 +38,27 @@ export const TaskBoard: React.FC = () => {
         <Badge size={"3"} color="gray">
           Para Fazer (2)
         </Badge>
+        {tasksTodo.map((task) => (
+          <TaskCard key={task.id} task={task}></TaskCard>
+        ))}
       </Flex>
       <Flex direction={"column"} gap={"4"}>
         <Badge size={"3"} color="yellow">
           Em Progresso (2)
         </Badge>
+
+        {tasksInProress.map((task) => (
+          <TaskCard key={task.id} task={task}></TaskCard>
+        ))}
       </Flex>
       <Flex direction={"column"} gap={"4"}>
         <Badge size={"3"} color="grass">
           Concluída (2)
         </Badge>
+
+        {tasksDone.map((task) => (
+          <TaskCard key={task.id} task={task}></TaskCard>
+        ))}
       </Flex>
     </Grid>
   );
