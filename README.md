@@ -47,7 +47,7 @@ npm install
 3. Crie um arquivo .env.local e inicie a variável da base da URL (o padrão do json-server é http://localhost:3000)
 
 ```bash
-VITE_API_URL
+VITE_API_URL=http://localhost:3000
 ```
 
 4. Inicie o json-server
