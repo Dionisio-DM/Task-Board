@@ -10,7 +10,7 @@ function App() {
         <Box height="4rem">
           <Flex align="center" gap="4" height="100%">
             <Heading as="h1" size="8" weight="light">
-              React Kanban
+              Task Board
             </Heading>
             <CreateTaskForm />
           </Flex>
