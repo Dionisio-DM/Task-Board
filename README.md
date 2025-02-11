@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# Task Board App 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um aplicativo de gerenciamento de tarefas intuitivo com validação de formulário e persistência de dados.
 
-Currently, two official plugins are available:
+## Funcionalidades ✨
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Criação de Tarefas**
+  - Título e descrição
+  - Prioridade (Baixa, Média, Alta)
+  - Status (Para Fazer, Em Progresso, Concluída)
+- **Organização Visual**
+  - 3 colunas para diferentes estágios
+  - Contador de tarefas por status
+  - Badges coloridos para prioridade
+- **Gestão de Tarefas**
+  - Progressão entre estados
+  - Exclusão de tarefas
+  - Atualização em tempo real
+- **Validação Robusta**
+  - Formulários validados com Zod
+  - Tipagem estática com TypeScript
 
-## Expanding the ESLint configuration
+## Tecnologias 🛠️
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**
+  - React + Vite
+  - Radix UI (Componentes acessíveis)
+  - Zod (Validação de esquemas)
+  - Context API (Gerenciamento de estado)
+- **Type Safety**
+  - TypeScript
 
-- Configure the top-level `parserOptions` property like this:
+## Como Executar ▶️
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/task-board.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Instale as dependências
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+npm install
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+3. Crie um arquivo .env.local e inicie a variável da base da URL (o padrão do json-server é http://localhost:3000)
+
+```bash
+VITE_API_URL
+```
+
+4. Inicie o json-server
+
+```bash
+npm run json-server
+```
+
+5. Inicie o servidor de desenvolvimento
+
+```bash
+npm run dev
 ```
