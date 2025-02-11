@@ -97,7 +97,7 @@ export const CreateTaskForm: React.FC = () => {
                   <RadioGroup.Item value="doing">
                     <Badge color="yellow">Em progresso</Badge>
                   </RadioGroup.Item>
-                  <RadioGroup.Item value="donw">
+                  <RadioGroup.Item value="done">
                     <Badge color="grass">Concluída</Badge>
                   </RadioGroup.Item>
                 </RadioGroup.Root>
