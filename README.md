@@ -61,3 +61,7 @@ npm run json-server
 ```bash
 npm run dev
 ```
+
+## Licença
+
+[MIT](https://choosealicense.com/licenses/mit/)
